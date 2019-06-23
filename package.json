@@ -1,0 +1,29 @@
+{
+  "name": "rust-intro",
+  "version": "1.0.0",
+  "description": "Introduction to Rust Slide Deck",
+  "devDependencies": {
+    "mdx-deck": "^1.7.7",
+    "mdx-deck-code-surfer": "^0.5.5",
+    "prism-react-renderer": "^0.1.6",
+    "raw-loader": "^0.5.1",
+    "styled-components": "^4.3.2"
+  },
+  "scripts": {
+    "start": "mdx-deck README.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/au-phiware/rust-intro.git"
+  },
+  "keywords": [
+    "deck",
+    "talk"
+  ],
+  "author": "Corin Lawson <corin@phiware.com.au>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/au-phiware/rust-intro/issues"
+  },
+  "homepage": "https://github.com/au-phiware/rust-intro#readme"
+}
