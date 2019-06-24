@@ -9,7 +9,7 @@
 
 
 
-[ruby multithreaded primer](https://lmgtfy.com/?iie=1&q=ruby+multithreaded+primer)
+ruby multithreaded primer
 
 
 
