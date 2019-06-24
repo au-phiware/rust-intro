@@ -1,0 +1,9 @@
+[package]
+name = "threads"
+version = "0.1.0"
+authors = ["Corin Lawson <corin@phiware.com.au>"]
+edition = "2018"
+
+publish = false
+
+[dependencies]

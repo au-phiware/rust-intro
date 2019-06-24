@@ -1,0 +1,43 @@
+#[derive(Clone)]
+struct Mail {
+    from: String,
+}
+
+fn new_mail() -> Mail {
+    Mail {
+        from: "eki@eqbalq.com".to_string(),
+    }
+}
+
+fn send_mail(Mail { from }: &Mail) {
+    fib(40);
+    println!("Email from: {}", from);
+}
+
+fn fib(n: u64) -> u64 {
+    match n {
+        0 | 1 => 1,
+        _ => fib(n - 1) + fib(n - 2),
+    }
+}
+
+use std::thread;
+
+fn main() -> thread::Result<()> {
+    let mail = new_mail();
+    let threads = (0..10)
+        .into_iter()
+        .map(|i| {
+            let mut mail = mail.clone();
+            std::thread::spawn(move || {
+                mail.from = format!("corin+{}@phiware.com.au", i);
+                send_mail(&mail);
+            })
+        })
+        .collect::<Vec<_>>();
+    threads
+        .into_iter()
+        .map(|t| t.join())
+        .collect::<Result<Vec<_>, _>>()?;
+    Ok(())
+}

@@ -289,7 +289,8 @@ and operations are valid.
 <Notes>
 Error messages from the Rust compiler aren't just cryptic one-liners and a
 stacktrace... They print multiple spans of text from within the source code that
-produced the error.
+produced the error.  And actually try to help you fix your code, in this way they
+owe a debt to Elm's pretty error messages.
 
 For example, here we have simple case of assigning a value to a variable name
 after it has been declared.  Simple enough for most languages, but not Rust!
@@ -441,6 +442,90 @@ difficult to write)!
 
 ---
 
+<CodeSurfer
+  title="Demo: Threads"
+  code={require("!raw-loader!./threads.md")}
+  lang="markdown"
+  steps={[
+    { ranges: [[1,24]] },
+    { ranges: [[29,71]] },
+    { ranges: [[75,98]] },
+    { ranges: [[112,114]] },
+    { ranges: [[102,110]] },
+    { ranges: [[143,145]] },
+    { ranges: [[117,120]] },
+    { ranges: [[149,172]] },
+    { ranges: [[217,225]] },
+    { ranges: [[230,253]] },
+    { ranges: [[254,277]] },
+    { ranges: [[279,307]] },
+    { ranges: [[311,334]] },
+    { ranges: [[336,359]] },
+  ]}
+/>
+
+<Notes>
+Okay, demo time &#x1f64f;
+
+I'm going to pick on another language to demo what can go wrong with threads.
+One of Rust's influences that I have mentioned yet is Ruby: so let's Google `ruby
+parallel programming`.  The first hit is by some guy called Eqbal Quran, sorry
+'Eki'.
+
+&#x27ab; I'm going to copy'n'paste the first few code blocks to get me started.
+
+&#x27ab; Give it a run... Great, that works.
+
+&#x27ab; Next I'm going to chop it up a bit to suit my needs... I'll split that
+deliver method (single responsibility)
+
+&#x27ab; ...make it more useful (default value)...
+
+&#x27ab; ...and make our first mistake by introducing a little bit of mutation.
+
+&#x27ab; Also, I'll cut back on the output and Eki uses this `fib` function to
+burn some CPU cycles, I'll just bump that a little bit...
+
+&#x27ab; Give it another run... Still works &#x1f605;
+
+&#x27ab; Next we'll actually introduce multiple threads
+
+&#x27ab; Let's see what happens... do you notice the problem?  ...don't tell me;
+I want Rust to tell me!
+
+&#x27ab; We'll start from scrach
+
+&#x27ab; ...and write our `main.rs`.  This is not to measure Ruby up to Rust,
+it's more of a demonstration of how Rust gets in your way more than other
+languages!
+
+&#x27ab; And we encounter our first error message; by default Rust doesn't allow
+you to modify the value that a variable holds, so we'll follow the compiliers
+advice and add the `mut` keyword.  `mail` is a unique reference to the memory
+that contains a `Mail` struct; it is now a mutable reference, meaning that we can
+change any part of the memory that represents that `Mail` struct.
+
+&#x27ab; Okay, let's add multiple threads...  First, let put in a loop.
+
+&#x27ab; This error tells us that `send_mail` is taking ownership of `mail` and
+when we are not allowed to change it in the second iteration of the loop because
+ownership has moved away, it doesn't belong to `mail` anymore.
+
+&#x27ab; There's no help here because there's multiple solutions to this problem
+and they each have their trade-offs ; the explain page has a discussion of these
+solutions.  I'm just going to do the minimal amount of typing here and declare
+`send_mail` as borrowing.
+
+&#x27ab; There are two sides to this contract: when `send_mail` wants to borrow,
+the caller needs to give it a shared reference; recall that `mail` is a unique
+and mutable reference.
+
+&#x27ab; Next we'll make a call to spawn... and chaos ensues!
+
+</Notes>
+
+---
+
 # Community
 
 - Open
@@ -453,7 +538,18 @@ difficult to write)!
 - RFC process
 
 <Notes>
-One Rust's greatest assets is its community; run by a foundation, and not a
+One of Rust's greatest assets is its community; run by a foundation, and not a
 corporation, it draws from a wide pool of experiences to ensure that the
 trade-offs of new features are critically evaluated.
 </Notes>
+
+---
+
+<center>
+
+# Thank You
+
+</center>
+
+## https://github.com/au-phiware/rust-intro
+
