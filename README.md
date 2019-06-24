@@ -407,7 +407,36 @@ missing edges cases.
 
 <Notes>
 Rust's most unique feature is its relentless borrow-checker that enforces that
-programs are memory safe and eliminates whole classes of bugs.
+programs are memory safe and eliminates whole classes of bugs.  Some language
+have a GC that keeps track of all references into memory and periodically frees
+unused memory at runtime.  Other languages expect you, the programmer, to free
+memory when you're done with it.  Both have their problems, but the former is
+considered 'safe' in terms of memory handling.  Rust is both safe and without a
+GC.  It achieves this by using its type system and a handful of keywords at
+runtime.  Central to this memory safety is the idea of ownership.  The idea is
+simple: your program owns a hunk of memory, holds a reference to it, and when
+that reference goes out of scope the memory can be dropped.  Problems quickly
+arise when you want to share that memory, pass it to an enclosing scope or have
+multiple threads.  Rust's compiler uses a notion of ownership transfers, borrows,
+reference lifetimes and mutability.  These ideas are easy to grasp in a naive
+way, but contain many subtleties that can be difficult to master.  Thankfully,
+computers are great at nitpicking; it's common for beginners to have 'fights'
+with the borrow-checker that is builtin to `rustc`... And it's really good when
+you feel like you win those fights; and even if you don't, your program will be
+free of bugs that it would have otherwise had.
+</Notes>
+
+---
+
+# Fearless Concurrency
+
+<Notes>
+It turns out that the ideas of borrowing and ownership, have parallels with
+techniques used to write bug-free concurrent programs and parallel processing.
+
+The Rust community have this catch phrase of *fearless concurrency*, which refers
+to the idea that the Rust compiler makes some bugs impossible (or more truthfully
+difficult to write)!
 </Notes>
 
 ---
